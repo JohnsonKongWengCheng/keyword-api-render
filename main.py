@@ -1,14 +1,27 @@
-from typing import Optional
+from flask import Flask, request, jsonify
+import spacy
 
-from fastapi import FastAPI
+app = Flask(__name__)
 
-app = FastAPI()
+# Load the spaCy model
+nlp = spacy.load("en_core_web_sm")
 
+@app.route("/")
+def home():
+    return "✅ Keyword Extraction API is running!"
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+@app.route("/extract", methods=["POST"])
+def extract_keywords():
+    data = request.get_json()
+    text = data.get("text", "")
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+    if not text:
+        return jsonify({"error": "No text provided"}), 400
+
+    doc = nlp(text)
+    keywords = [token.text for token in doc if token.is_alpha and not token.is_stop]
+
+    return jsonify({"keywords": keywords})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
