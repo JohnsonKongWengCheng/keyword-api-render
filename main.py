@@ -14,10 +14,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Load spaCy model
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
-    print("Downloading language model...")
     spacy.cli.download("en_core_web_sm")
     nlp = spacy.load("en_core_web_sm")
 
@@ -31,15 +31,11 @@ async def extract_keywords(request: Request):
     text = data.get("text", "")
     doc = nlp(text)
 
-    # Collect important phrases (noun chunks + meaningful verbs)
     keywords = set()
-
-    # Add noun phrases like "the ladder", "a car accident"
     for chunk in doc.noun_chunks:
         if len(chunk.text.split()) > 1:
             keywords.add(chunk.text.lower())
 
-    # Add strong verbs (actions)
     for token in doc:
         if token.pos_ in ["VERB", "ADJ"] and not token.is_stop:
             keywords.add(token.lemma_.lower())
