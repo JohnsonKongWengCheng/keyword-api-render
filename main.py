@@ -1,10 +1,15 @@
 from fastapi import FastAPI, Request
 import spacy
+from spacy.cli import download
 
 app = FastAPI()
 
-# Load the spaCy English model
-nlp = spacy.load("en_core_web_sm")
+# Try to load, if not found — download and load it
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
 @app.get("/")
 def read_root():
