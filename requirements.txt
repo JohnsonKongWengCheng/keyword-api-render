@@ -1,3 +1,9 @@
-fastapi[all]
-uvicorn
-spacy
+# --- FastAPI & ASGI Server ---
+fastapi[all]==0.115.2
+uvicorn[standard]==0.32.0
+
+# --- NLP Dependencies ---
+spacy==3.7.2
+
+# --- SpaCy English Model (Required for keyword extraction) ---
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
