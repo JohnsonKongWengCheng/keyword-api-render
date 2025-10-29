@@ -1,11 +1,6 @@
-# --- FastAPI & Server ---
 fastapi==0.115.2
 uvicorn==0.32.0
-
-# --- Core NLP Dependencies ---
 spacy==3.7.2
 numpy==1.26.4
 pydantic==2.8.2
-
-# --- Download English model directly (no build step) ---
-https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
