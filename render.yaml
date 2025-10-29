@@ -1,10 +1,8 @@
 services:
   - type: web
-    name: keyword-api
-    env: python              # ✅ use 'env' instead of 'runtime' (Render prefers this)
+    name: fastapi-example
+    runtime: python
     plan: free
-    autoDeploy: true         # ✅ optional — automatically redeploy when you push changes
-    buildCommand: |
-      pip install -r requirements.txt
-      python -m spacy download en_core_web_sm
+    autoDeploy: false
+    buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
