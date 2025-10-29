@@ -4,6 +4,16 @@ from spacy.cli import download
 
 app = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins for testing
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Try to load, if not found — download and load it
 try:
     nlp = spacy.load("en_core_web_sm")
