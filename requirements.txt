@@ -1,18 +1,11 @@
 # --- FastAPI & Server ---
-fastapi[all]==0.115.2
-uvicorn[standard]==0.32.0
+fastapi==0.115.2
+uvicorn==0.32.0
 
-# --- SpaCy (Lightweight install, uses wheels) ---
+# --- Core NLP Dependencies ---
 spacy==3.7.2
 numpy==1.26.4
-blis==0.7.11
-catalogue==2.0.10
-murmurhash==1.0.10
-preshed==3.0.9
-thinc==8.2.2
-wasabi==1.1.3
-srsly==2.4.8
-cython==3.0.11
+pydantic==2.8.2
 
-# --- SpaCy English model (auto-download) ---
+# --- Download English model directly (no build step) ---
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
