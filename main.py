@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import spacy
+import spacy.cli
 
 app = FastAPI()
 
@@ -13,8 +14,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load English model
-nlp = spacy.load("en_core_web_sm")
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    print("Downloading language model...")
+    spacy.cli.download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
 @app.get("/")
 def home():
